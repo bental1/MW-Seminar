@@ -62,8 +62,12 @@ ax.annotate(
     arrowprops=dict(arrowstyle="<->", color="#888888", lw=1.2),
 )
 
-# empty lower-left region for both curves at this seed -- safe for a text block
-ax.text(8, -23,
+# reserve clear headroom below the lowest curve point so the text block below never
+# collides with the x-axis, regardless of how the bottom margin is laid out
+y_floor = oracle_cum.min() - 14
+ax.set_ylim(bottom=y_floor)
+
+ax.text(8, oracle_cum.min() - 5,
         f"gap between the curves = regret\n"
         f"regret at t={mid_t}: {alg_cum[mid_t]-oracle_cum[mid_t]:.2f}\n"
         f"final regret at t={T}: {regret[-1]:.2f}   (Theorem 2.1 bound: {2*np.sqrt(T*np.log(n)):.2f})",
@@ -84,7 +88,7 @@ fig.text(0.5, 0.015,
     "The algorithm's cumulative cost tracks the single best-in-hindsight decision closely; the\n"
     "gap between the two curves at any round is exactly that round's regret.",
     ha="center", va="bottom", fontsize=11, color="#555555")
-fig.savefig("/home/claude/mw_deck/oracle_plot.png", dpi=300, facecolor="white")
+fig.savefig("oracle_plot.png", dpi=300, facecolor="white")
 print(f"best fixed decision (oracle) index: {best_i}")
 print(f"algorithm final cumulative cost: {alg_cum[-1]:.2f}")
 print(f"oracle final cumulative cost:    {oracle_cum[-1]:.2f}")
