@@ -14,8 +14,9 @@ itself. The slide numbers refer to the seminar deck.
 
 | script | slide | what it shows |
 |---|---|---|
+| `template_plot.py` | 4 | a meta-algorithm as a template with four empty slots, and three algorithms that fill them |
 | `setting_plot.py` | 10–14, 33 | the online-decision game on one picture, drawn six times with different parts lit: the story, the symbols, the adversary, regret, everything, and the coin-flipping adversary of the lower bound |
-| `roadmap_plot.py` | 3, 9, 15, 19, 28, 38, 41 | the journey as a flow chart for the dark section dividers, one per part with that part lit |
+| `roadmap_plot.py` | 3, 9, 15, 19, 28, 38, 42, 44 | the journey as a flow chart for the dark section dividers, one per part with that part lit |
 | `mw_algorithm.py` | 16 | the four-line MW implementation and a small demo run |
 | `stock_plot.py` | 18 | a worked run on four stocks (n = 4, T = 16, η = 0.4): cumulative cost of each stock, and where MW puts its probability mass as two of them crash |
 | `sandwich_plot.py` | 25 | the proof's potential Φ⁽ᵗ⁾ on a real run, trapped between the best decision's own weight (below) and n·exp(−η Σ m·p) (above) |

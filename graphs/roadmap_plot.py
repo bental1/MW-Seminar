@@ -1,9 +1,9 @@
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from pathlib import Path
 from matplotlib.patches import FancyArrowPatch
 import sys
-from pathlib import Path
 plt.rcParams["font.family"] = ["Carlito", "Calibri", "DejaVu Sans"]   # Carlito = metric-compatible Calibri
 
 # The journey (slide 2) as a horizontal flow, drawn once per part with that part lit.
@@ -13,7 +13,10 @@ BG = "#1a1a1a"; ORANGE = "#E08E45"; WHITE = "#ffffff"; DONE = "#a8a8a8"; DONE_FC
 PARTS = [("I", "History"), ("II", "The problem"), ("III", "The algorithm"), ("IV", "The proof"),
          ("V", "The limits"), ("VI", "Nature"), ("VII", "Summary")]
 
-def draw(cur, out):
+def draw(cur, out, light=False):
+    global BG, WHITE, DONE, DONE_FC, FUT, LINE
+    if light:
+        BG, WHITE, DONE, DONE_FC, FUT, LINE = "#ffffff", "#ffffff", "#555555", "#e6e6e6", "#9a9a9a", "#d0d0d0"
     W, H = 12.2, 1.25
     fig = plt.figure(figsize=(W, H), dpi=200)
     ax = fig.add_axes([0, 0, 1, 1]); ax.set_xlim(0, W); ax.set_ylim(0, H); ax.axis("off")
@@ -23,7 +26,7 @@ def draw(cur, out):
         ax.add_patch(FancyArrowPatch((xs[k] + r + 0.06, cy), (xs[k + 1] - r - 0.06, cy), arrowstyle="-|>",
                                      mutation_scale=12, color=ORANGE if k < cur else LINE, lw=1.4, zorder=1))
     for k, (num, lab) in enumerate(PARTS):
-        if k == cur:   fc, ec, tc, lc, bold = ORANGE, ORANGE, WHITE, WHITE, True
+        if k == cur:   fc, ec, tc, lc, bold = ORANGE, ORANGE, "#ffffff", ("#1a1a1a" if light else WHITE), True
         elif k < cur:  fc, ec, tc, lc, bold = DONE_FC, DONE_FC, DONE, DONE, False
         else:          fc, ec, tc, lc, bold = BG, FUT, FUT, FUT, False
         ax.add_patch(plt.Circle((xs[k], cy), r * (1.18 if k == cur else 1.0), facecolor=fc, edgecolor=ec, lw=1.4, zorder=2))
@@ -36,4 +39,5 @@ def draw(cur, out):
 if __name__ == "__main__":
     for k in range(7):
         draw(k, str(Path(__file__).with_name(f"roadmap_{k+1}.png")))
+    draw(6, str(Path(__file__).with_name("roadmap_light.png")), light=True)
     print("ok")

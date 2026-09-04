@@ -1,9 +1,9 @@
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from pathlib import Path
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 import sys
-from pathlib import Path
 plt.rcParams["font.family"] = ["Carlito", "Calibri", "DejaVu Sans"]   # Carlito = metric-compatible Calibri
 
 # The online-decision game in one picture, drawn several times with different parts
@@ -20,7 +20,7 @@ def draw(variant, out):
            "regret":    {"yard"},
            "all":       {"decisions", "choose", "adversary", "pay", "loop", "yard"},
            "coins":     {"adversary", "decisions"}}[variant]
-    def a(part): return 1.0 if part in lit else 0.22
+    def a(part): return 1.0 if part in lit else 0.42
 
     W, H = 13.0, 4.3
     fig = plt.figure(figsize=(W, H), dpi=200)

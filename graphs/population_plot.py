@@ -1,9 +1,9 @@
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from pathlib import Path
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 import numpy as np
-from pathlib import Path
 plt.rcParams["font.family"] = ["Carlito", "Calibri", "DejaVu Sans"]   # Carlito = metric-compatible Calibri
 
 # The biological setting behind Part 6, in one picture: a population of organisms,
@@ -36,8 +36,8 @@ def population(x0, y0, shares, title, sub, seed):
     for k, a in enumerate(dots):
         r, c = divmod(k, 10)
         ax.add_patch(plt.Circle((x0 + 0.16 + c * 0.30, y0 + 2.86 - r * 0.30), 0.115, color=cols[a], zorder=3))
-    ax.text(x0 + 1.5, y0 + 3.35, title, ha="center", va="center", fontsize=13, color=BLACK, fontweight="bold")
-    ax.text(x0 + 1.5, y0 - 0.32, sub, ha="center", va="center", fontsize=10.5, color=GREY)
+    ax.text(x0 + 1.5, y0 + 3.35, title, ha="center", va="center", fontsize=14, color=BLACK, fontweight="bold")
+    ax.text(x0 + 1.5, y0 - 0.32, sub, ha="center", va="center", fontsize=11.5, color=GREY)
 
 def strip(x0, y, shares, label):
     xx = x0
@@ -46,9 +46,9 @@ def strip(x0, y, shares, label):
         ax.add_patch(FancyBboxPatch((xx, y), w - 0.02, 0.22, boxstyle="round,pad=0,rounding_size=0.03",
                                     facecolor=cols[a], edgecolor="none", zorder=3))
         ax.text(xx + w / 2, y + 0.11, f"{alleles[a]} {int(round(shares[a]*100))}%", ha="center", va="center",
-                fontsize=8.5, color="white" if a != 0 else BLACK, zorder=4, fontweight="bold")
+                fontsize=10.5, color="white" if a != 0 else BLACK, zorder=4, fontweight="bold")
         xx += w
-    ax.text(x0 + 1.48, y - 0.2, label, ha="center", va="center", fontsize=10, color=GREY)
+    ax.text(x0 + 1.48, y - 0.22, label, ha="center", va="center", fontsize=11.5, color=GREY)
 
 X1, X2, Y = 0.35, 8.05, 0.75
 population(X1, Y, share0, "generation  t", "100 organisms, one dot each", 1)
@@ -68,7 +68,7 @@ for k, (a, col) in enumerate(zip(alleles, cols)):
     ax.text(mx - 0.82, 1.62 - k * 0.34, f"allele {a}:  fitness {fitness[k]:+.2f}", ha="left", va="center",
             fontsize=11, color=BLACK)
 ax.text(mx, 0.22, "s  =  how strongly fitness matters  (the learning rate)", ha="center", va="center",
-        fontsize=10.5, color=ACC, style="italic")
+        fontsize=12, color=ACC, style="italic")
 
 fig.savefig(str(Path(__file__).with_suffix(".png")), dpi=200, facecolor="white", bbox_inches="tight", pad_inches=0.06)
 print(np.round(share1, 3))
