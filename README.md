@@ -22,8 +22,9 @@ itself. The slide numbers refer to the seminar deck.
 | `lucky_coin_plot.py` | 34 | the lower-bound construction: decision 1 pays ½ every round, the rest are fair coins; the "gap" t/2 − cost of each decision, and how the luckiest coin's gap grows |
 | `lower_bound_plot.py` | 36 | Lemma 4.2: how far below T/2 the best of n coins lands, measured by simulation, tracks √(ln n) |
 | `tight_bounds_plot.py` | 37 | the upper bound 2√(T ln n) and the lower bound (1/80)√(T ln(n−1)) on log–log axes: same slope, so the rate Θ(√(T ln n)) is optimal |
-| `evolution_plot.py` | 39 | allele frequencies under weak selection (Chastain, Livnat, Papadimitriou & Vazirani, PNAS 2014): the update share ← share·(1 + s·fitness) is MW with cost = −fitness and η = s |
-| `bowtie_plot.py` | 42 | the bow-tie: Winnow, PST and AdaBoost feeding into the 2012 survey, and a few of the papers across CS (and biology) that cite it |
+| `population_plot.py` | 39 | the biological setting: a population of 100 organisms, one gene with four alleles, one generation of selection — shares before and after |
+| `evolution_plot.py` | 40 | allele frequencies under weak selection (Chastain, Livnat, Papadimitriou & Vazirani, PNAS 2014): the update share ← share·(1 + s·fitness) is MW with cost = −fitness and η = s |
+| `bowtie_plot.py` | 43 | the bow-tie: Winnow, PST and AdaBoost feeding into the 2012 survey, and a few of the papers across CS (and biology) that cite it |
 
 Run any script with:
 
