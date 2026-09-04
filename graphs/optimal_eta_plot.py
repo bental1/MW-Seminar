@@ -2,50 +2,43 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+from pathlib import Path
+plt.rcParams["font.family"] = ["Carlito", "Calibri", "DejaVu Sans"]   # Carlito = metric-compatible Calibri
 
-# Visualizes the eta-optimization on the "Optimal eta" corollary slide: bound(eta) =
-# eta*T + ln(n)/eta over eta in (0, 1/2], with the minimizer eta* = sqrt(ln(n)/T) marked.
-# Same n, T as the rest of the deck's simulations (n=8, T=250) so the whole deck stays
-# one consistent running example.
+# The regret bound  eta*T + ln(n)/eta  as a function of eta, for n = 8, T = 256.
+# Two terms pull in opposite directions; the minimum is at eta* = sqrt(ln n / T).
 
-n, T = 8, 250
-eta = np.linspace(0.01, 0.5, 500)
-bound = eta * T + np.log(n) / eta
+BLACK  = "#1a1a1a"
+ORANGE = "#E08E45"
+PURPLE = "#6C4AB6"
+ACC    = "#8A5A28"
 
-eta_star = np.sqrt(np.log(n) / T)
-bound_star = eta_star * T + np.log(n) / eta_star
+n, T = 8, 256
+eta = np.linspace(0.01, 0.5, 400)
+a = eta * T
+b = np.log(n) / eta
+eta_s = np.sqrt(np.log(n) / T)
+best = 2 * np.sqrt(T * np.log(n))
 
-black = "#1a1a1a"
-orange = "#E08E45"
+fig = plt.figure(figsize=(10.0, 3.7), dpi=200)
+ax = fig.add_axes([0.09, 0.19, 0.88, 0.76])
+ax.plot(eta, a, "--", color=PURPLE, lw=1.8)
+ax.plot(eta, b, ":", color=ORANGE, lw=1.8)
+ax.plot(eta, a + b, color=BLACK, lw=2.6)
+ax.plot([eta_s], [best], "o", color=ORANGE, ms=9, zorder=5)
 
-fig, ax = plt.subplots(figsize=(9.6, 4.6), dpi=300)
+ax.text(0.42, 0.42 * T - 22, "ηT  —  overreacting", color=PURPLE, fontsize=12, ha="center", va="top")
+ax.text(0.035, 175, "ln(n)/η  —  learning too slowly", color=ORANGE, fontsize=12, ha="left", va="center")
+ax.text(0.33, 0.33 * T + np.log(n) / 0.33 + 22, "ηT + ln(n)/η", color=BLACK, fontsize=12.5, ha="center", va="bottom", fontweight="bold")
+ax.annotate("η* = √(ln n / T) ≈ %.2f\nbound ≈ %.0f = 2√(T ln n)" % (eta_s, best),
+            xy=(eta_s, best), xytext=(0.17, 110), fontsize=12, color=ACC, linespacing=1.35,
+            arrowprops=dict(arrowstyle="->", color=ORANGE, lw=1.2, shrinkB=6))
 
-ax.plot(eta, bound, color=black, lw=2.4, label="bound(η) = ηT + ln(n)/η")
-ax.axvline(eta_star, color=orange, lw=1.6, ls=":")
-ax.plot([eta_star], [bound_star], marker="o", ms=7, color=orange, zorder=5)
-ax.annotate(
-    f"η* = √(ln n / T) ≈ {eta_star:.3f}\nmin bound ≈ {bound_star:.1f}",
-    xy=(eta_star, bound_star), xytext=(eta_star + 0.05, bound_star + 25),
-    fontsize=11.5, color="#8a5a28",
-    arrowprops=dict(arrowstyle="->", color=orange, lw=1.3),
-)
-
-ax.set_xlabel("η", fontsize=13)
-ax.set_ylabel("bound(η)", fontsize=13)
-ax.set_title(f"n = {n},  T = {T}", fontsize=11, color="#777777")
-fig.suptitle("Choosing η to Minimize the Bound", fontsize=15, color=black, fontweight="bold", y=0.99)
-ax.legend(loc="upper center", fontsize=10.5, frameon=True)
-ax.spines["top"].set_visible(False)
-ax.spines["right"].set_visible(False)
-ax.tick_params(labelsize=10)
-ax.set_xlim(0, 0.5)
-ax.set_ylim(bottom=0)
-
-fig.tight_layout(rect=[0, 0.115, 1, 0.94])
-fig.text(0.5, 0.015,
-    "The bound ηT + ln(n)/η trades off two terms moving in opposite directions as η changes;\n"
-    "the minimum sits at η* = √(ln(n)/T), giving the familiar O(√(T ln n)) rate.",
-    ha="center", va="bottom", fontsize=11, color="#555555")
-fig.savefig("/home/claude/mw_deck/optimal_eta_plot.png", dpi=300, facecolor="white")
-print(f"eta*={eta_star:.4f}  min bound={bound_star:.2f}")
-print("saved optimal_eta_plot.png")
+ax.set_xlim(0, 0.5); ax.set_ylim(0, 230)
+ax.set_xlabel("learning rate  η", fontsize=12.5)
+ax.set_ylabel("regret bound", fontsize=12.5)
+ax.set_title("n = 8,  T = 256", fontsize=11, color="#777777", loc="left", pad=6)
+ax.tick_params(labelsize=11)
+ax.spines["top"].set_visible(False); ax.spines["right"].set_visible(False)
+fig.savefig(str(Path(__file__).with_suffix(".png")), dpi=200, facecolor="white", bbox_inches="tight", pad_inches=0.06)
+print("eta*", eta_s, "bound", best)
