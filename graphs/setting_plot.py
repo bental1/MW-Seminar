@@ -1,9 +1,9 @@
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from pathlib import Path
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 import sys
+from pathlib import Path
 plt.rcParams["font.family"] = ["Carlito", "Calibri", "DejaVu Sans"]   # Carlito = metric-compatible Calibri
 
 # The online-decision game in one picture, drawn several times with different parts
@@ -83,14 +83,14 @@ def draw(variant, out):
     arrow(lx + 1.7 + 0.08, 2.60, cx[0] - 0.05, cy + ch / 2, color=GREY, lw=1.2, alpha=max(a("decisions"), a("choose")))
 
     # ---- right: the yardstick
-    al = a("yard"); R = 12.85
-    ax.text(R, 3.62, "after T rounds", ha="right", va="center", fontsize=13, color=BLACK, fontweight="bold", alpha=al)
+    al = a("yard"); R = 11.05
+    ax.text(R, 3.62, "after T rounds", ha="left", va="center", fontsize=13, color=BLACK, fontweight="bold", alpha=al)
     paid = "what we paid\nΣₜ m⁽ᵗ⁾ · p⁽ᵗ⁾" if symbols else "what we paid\nin total"
     best = "the best single decision,\nseen in hindsight" if not symbols else "the best single decision,\nin hindsight:  minᵢ Σₜ mᵢ⁽ᵗ⁾"
-    ax.text(R, 3.02, paid, ha="right", va="center", fontsize=11.5, color=ORANGE, linespacing=1.35, alpha=al)
-    ax.text(R, 2.36, "versus", ha="right", va="center", fontsize=11, color=GREY, style="italic", alpha=al)
-    ax.text(R, 1.72, best, ha="right", va="center", fontsize=11.5, color=BLACK, linespacing=1.35, alpha=al)
-    ax.text(R, 0.95, "the difference is\nour regret", ha="right", va="center", fontsize=12, color=ACC, fontweight="bold", linespacing=1.35, alpha=al)
+    ax.text(R, 3.02, paid, ha="left", va="center", fontsize=11.5, color=ORANGE, linespacing=1.35, alpha=al)
+    ax.text(R, 2.36, "versus", ha="left", va="center", fontsize=11, color=GREY, style="italic", alpha=al)
+    ax.text(R, 1.72, best, ha="left", va="center", fontsize=11.5, color=BLACK, linespacing=1.35, alpha=al)
+    ax.text(R, 0.95, "the difference is\nour regret", ha="left", va="center", fontsize=12, color=ACC, fontweight="bold", linespacing=1.35, alpha=al)
     if variant == "regret":
         card(10.88, 0.45, 2.12, 3.55, "none", ec=ACC, r=0.16, z=1)
 
