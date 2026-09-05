@@ -40,3 +40,14 @@ The figures use the Carlito font (metric-compatible with Calibri, the font
 of the slides) when it is installed, and fall back to Calibri or DejaVu
 Sans otherwise. PNGs are not committed; regenerate them by running the
 scripts.
+
+## seminar/
+
+`seminar/main.tex` is the LaTeX source of the written seminar report. Its figures are
+the PNGs the scripts above produce, read from `graphs/`. To build it:
+
+```
+pip install -r requirements.txt
+for f in graphs/*_plot.py; do python3 "$f"; done
+cd seminar && latexmk -pdf main.tex
+```

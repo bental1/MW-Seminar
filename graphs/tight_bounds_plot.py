@@ -30,9 +30,9 @@ def along(x0, y, txt, color, above, f):
     ax.text(x0, y, txt, color=color, fontsize=12.5, ha="center", va="bottom" if above else "top",
             rotation=ang, rotation_mode="anchor", transform_rotates_text=False, fontweight="bold")
 fig.canvas.draw()
-along(1.5e3, 2 * np.sqrt(1.5e3 * np.log(n)) * 1.25, "upper bound (Thm 2.1):  2√(T ln n)", BLACK, True,
+along(1.5e3, 2 * np.sqrt(1.5e3 * np.log(n)) * 1.25, "upper bound:  2√(T ln n)", BLACK, True,
       lambda T: 2 * np.sqrt(T * np.log(n)))
-along(1.5e3, np.sqrt(1.5e3 * np.log(n - 1)) / 80 / 1.25, "lower bound (Thm 4.1):  (1/80)√(T ln(n−1))", ORANGE, False,
+along(1.5e3, np.sqrt(1.5e3 * np.log(n - 1)) / 80 / 1.25, "lower bound:  (1/80)√(T ln(n−1))", ORANGE, False,
       lambda T: np.sqrt(T * np.log(n - 1)) / 80)
 ax.text(1.0e3, np.sqrt(2 * np.sqrt(1e3 * np.log(n)) * np.sqrt(1e3 * np.log(n - 1)) / 80),
         "same slope  —  the gap is only a constant factor", color=GREY, fontsize=12.5, ha="center", va="center")

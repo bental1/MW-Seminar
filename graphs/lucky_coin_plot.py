@@ -120,7 +120,7 @@ axR.annotate(f"t = 16:  gap {gap_16[lucky]:+.0f}\n(from the table)",
 axR.annotate("", xy=(T * 0.985, 0), xytext=(T * 0.985, gap_end),
              arrowprops=dict(arrowstyle="<->", color=ORANGE, lw=1.5))
 axR.text(T * 1.05, gap_end * 0.55,
-         f"t = 500:  gap {gap_end:+.0f}\nthis gap is\nthe regret",
+         f"t = 500:  gap {gap_end:+.0f}\nthis gap is the\nregret, on average",
          fontsize=11, color=ORANGE, va="center", linespacing=1.35)
 axR.text(T * 1.05, 0, "decision 1:\ngap 0 at every t", va="center",
          fontsize=11, color=BLACK, linespacing=1.3)
